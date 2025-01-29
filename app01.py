@@ -44,13 +44,7 @@ def cars_api():
 
 @app.route("/frontend", methods=["GET", "POST"])
 def frontend():
-    search_text = request.args.get("search")
-    if search_text:
-        all_cars = Automobil.query.filter(Automobil.make.ilike(f"%{search_text}%")).all()
-    else:
-        all_cars = Automobil.query.all()
-    cars_data = [CarsSchema.model_validate(car).model_dump() for car in all_cars]
-    return render_template("cars.html", cars=cars_data)
+    return render_template("cars.html")
 
 
 if __name__ == "__main__":
