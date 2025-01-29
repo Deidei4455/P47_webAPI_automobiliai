@@ -30,7 +30,7 @@ def frontend():
     else:
         all_cars = Automobil.query.all()
     cars_data = [CarsSchema.model_validate(car).model_dump() for car in all_cars]
-    return render_template("cars.html", cars=cars_data, search_text=search_text)
+    return render_template("cars.html", cars=cars_data)
 
 
 if __name__ == "__main__":
