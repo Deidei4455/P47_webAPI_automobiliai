@@ -15,20 +15,16 @@ with app.app_context():
     db.create_all()
 
 
-@app.route("/api/cars")
+@app.route("/")
 def cars_api():
     all_cars = Automobil.query.all()
     cars_data = [CarsSchema.model_validate(car).model_dump() for car in all_cars]
     return jsonify(cars_data)
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/frontend", methods=["GET", "POST"])
 def frontend():
-    search_text = request.args.get("search")
-    if search_text:
-        all_cars = Automobil.query.filter(Automobil.make.ilike(f"%{search_text}%")).all()
-    else:
-        all_cars = Automobil.query.all()
+    all_cars = Automobil.query.all()
     cars_data = [CarsSchema.model_validate(car).model_dump() for car in all_cars]
     return render_template("cars.html", cars=cars_data)
 
