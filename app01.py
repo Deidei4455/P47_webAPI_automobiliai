@@ -22,5 +22,10 @@ def cars_api():
     return jsonify(cars_data)
 
 
+@app.route("/api/cars/frontend")
+def frontend():
+    return render_template("cars.html")
+
+
 if __name__ == "__main__":
     app.run()
