@@ -22,9 +22,15 @@ def cars_api():
     return jsonify(cars_data)
 
 
-@app.route("/api/cars/frontend")
+@app.route("/", methods=["GET", "POST"])
 def frontend():
-    return render_template("cars.html")
+    search_text = request.args.get("search")
+    if search_text:
+        all_cars = Automobil.query.filter(Automobil.make.ilike(f"%{search_text}%")).all()
+    else:
+        all_cars = Automobil.query.all()
+    cars_data = [CarsSchema.model_validate(car).model_dump() for car in all_cars]
+    return render_template("cars.html", cars=cars_data, search_text=search_text)
 
 
 if __name__ == "__main__":
