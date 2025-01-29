@@ -1,6 +1,6 @@
 from serializers import CarsSchema
 from models import db, Automobil
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -15,7 +15,7 @@ with app.app_context():
     db.create_all()
 
 
-@app.route("/api/cars")
+@app.route("/api2/cars")
 def cars_api_dict():
     all_cars = Automobil.query.all()
     duomenys_json = [
@@ -35,7 +35,7 @@ def cars_api_dict():
     return jsonify(duomenys_json)
 
 
-@app.route("/api2/cars")
+@app.route("/api/cars")
 def cars_api():
     all_cars = Automobil.query.all()
     cars_data = [CarsSchema.model_validate(car).model_dump() for car in all_cars]
