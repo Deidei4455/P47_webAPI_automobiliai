@@ -1,5 +1,5 @@
 from models import db, Automobil
-from app import app
+from app01 import app
 
 with app.app_context():
     autos = [
